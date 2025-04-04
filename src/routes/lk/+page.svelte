@@ -1,4 +1,4 @@
-<svelte:window onkeydown={shortcutHandler} /> 
+<svelte:window onkeydown={shortcutHandler} />
 
 <div id="app">
     {#if prizeRandom.interval === -1}
@@ -8,7 +8,7 @@
     {/if}
 
     {#if !hideShortcut}
-        <div id="shortcut" hidden={hideShortcut} aria-hidden={hideShortcut}>
+        <div id="shortcut" hidden={hideShortcut} aria-hidden={hideShortcut} transition:fade={{ duration: 300 }}>
             <Shortcut key="Space" desc="Run doorprize"/>
             <Shortcut key="Shift + /" desc="Open shortcut panel"/>
             <Shortcut key="`" desc="Hide/show shortcut"/>
@@ -59,8 +59,10 @@
 
 <!-- -+---+- Scripts -+---+- -->
 <script lang="ts">
-    import Shortcut from "./Shortcut.svelte";
+    import { fade } from 'svelte/transition';
+    import { onMount } from 'svelte';
     import ShortcutPanel from "./ShortcutPanel.svelte";
+    import Shortcut from "./Shortcut.svelte";
 
     let dialog: HTMLDialogElement;
 
@@ -113,4 +115,8 @@
             hideShortcut = !hideShortcut;
         }
     }
+
+    setTimeout(() => {
+        hideShortcut = true;
+    }, 5000)
 </script>
