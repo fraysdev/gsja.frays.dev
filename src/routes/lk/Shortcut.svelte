@@ -22,6 +22,8 @@
         box-shadow: 2px 2px 0 0 black;
         border: 1px solid black;
         padding: 2px 4px;
+        min-width: .9em;
+        text-align: center;
     }
 
     #desc {
