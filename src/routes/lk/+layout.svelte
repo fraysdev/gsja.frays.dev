@@ -1,0 +1,13 @@
+<svelte:head>
+    <title>Doorprize Life Kids | gsja.frays.dev</title>
+    <link rel="shortcut icon" href="/lifekids.png" type="image/x-icon">
+</svelte:head>
+
+<script lang="ts">
+    import type { Snippet } from 'svelte';
+    import type { LayoutData } from './$types';
+
+    let { data, children }: { data: LayoutData, children: Snippet } = $props();
+</script>
+
+{@render children()}
