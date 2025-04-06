@@ -18,7 +18,7 @@
     }
 
     #key {
-        background-color: antiquewhite;
+        background-color: white;
         box-shadow: 2px 2px 0 0 black;
         border: 1px solid black;
         padding: .1em .2em;
