@@ -2,7 +2,7 @@
 
 <div id="app">
     {#if prizeRandom.interval === -1}
-        <div id="prize-number">{prizeNumber.toString().padStart(3, "0")}</div>
+        <div id="prize-number">{prizeNumber.toString().padStart(prizeRange.max.toString().length, "0")}</div>
     {:else}
         <div id="prize-number">{prizeRandom.number.toString().padStart(3, "0")}</div>
     {/if}
@@ -10,15 +10,18 @@
     {#if !hideShortcut}
         <div id="shortcut" hidden={hideShortcut} aria-hidden={hideShortcut} transition:fade={{ duration: 300 }}>
             <Shortcut key="Space" desc="Run doorprize"/>
-            <Shortcut key="Shift + /" desc="Open shortcut panel"/>
+            <Shortcut key="S" desc="Open setting"/>
+            <Shortcut key="Shift + /" desc="Open suprise"/>
             <Shortcut key="`" desc="Hide/show shortcut"/>
         </div>
     {/if}
 
-    <ShortcutPanel bind:dialog>
+    <RickRoll bind:dialog={rickRollDialog}>
         <img src="/dance-moves.gif" alt="A man dancing">
         <div>Haha, get rick rolled baby!</div>
-    </ShortcutPanel>
+    </RickRoll>
+
+    <Setting bind:dialog={settingDialog} range={prizeRange} />
 </div>
 
 <!-- -+---+- Styles -+---+- -->
@@ -29,7 +32,7 @@
 
     #app {
         height: 100vh;
-        background-color: antiquewhite;
+        background-color: #f7f6fd;
         
         display: flex;
         flex-direction: column;
@@ -60,11 +63,15 @@
 <!-- -+---+- Scripts -+---+- -->
 <script lang="ts">
     import { fade } from 'svelte/transition';
-    import { onMount } from 'svelte';
-    import ShortcutPanel from "./ShortcutPanel.svelte";
-    import Shortcut from "./Shortcut.svelte";
+    import { range } from '$lib/scripts/numberRange';
+    import type { Range } from '$lib/scripts/numberRange';
+    import Shortcut from "$lib/components/Shortcut.svelte";
+    import RickRoll from "$lib/components/RickRoll.svelte";
+    import Setting from '$lib/components/Setting.svelte';
+    import { browser } from "$app/environment";
 
-    let dialog: HTMLDialogElement;
+    let rickRollDialog: HTMLDialogElement|undefined = $state();
+    let settingDialog: HTMLDialogElement|undefined = $state();
 
     interface PrizeRandom {
         number: number,
@@ -73,6 +80,7 @@
 
     let hideShortcut = $state(false);
 
+    let prizeRange = $state<Range>({ min: 1, max: 999 })
     let prizeNumber = $state(0);
     let prizeRandom = $state<PrizeRandom>({ 
         number: 0,
@@ -82,7 +90,7 @@
     function randomizeNumber() {
         if (prizeRandom.interval === -1) {
             // Add one to eliminate prize number of 0
-            prizeNumber = 1 + Math.round(Math.random() * 1000);
+            prizeNumber = prizeRange.min + Math.round(Math.random() * prizeRange.max);
             console.log(`Next prize number is ${prizeNumber}`)
 
             prizeRandom.interval = setInterval(() => {
@@ -106,10 +114,20 @@
         if (event.code === "Space") {
             randomizeNumber();
         } else if (event.shiftKey && event.code === "Slash") {
-            if (dialog.open) {
-                dialog.close();
+            if (!rickRollDialog) return;
+
+            if (rickRollDialog.open) {
+                rickRollDialog.close();
             } else {
-                dialog.showModal()
+                rickRollDialog.showModal()
+            }
+        } else if (event.code === "KeyS") {
+            if (!settingDialog) return;
+
+            if (settingDialog.open) {
+                settingDialog.close();
+            } else {
+                settingDialog.showModal()
             }
         } else if (event.code === "Backquote") {
             hideShortcut = !hideShortcut;
@@ -119,4 +137,8 @@
     setTimeout(() => {
         hideShortcut = true;
     }, 5000)
+
+    range.subscribe((v) => {
+        if (browser) return (prizeRange = v)
+    })
 </script>
