@@ -32,8 +32,10 @@
 
     #app {
         height: 100vh;
-        background-color: #f7f6fd;
-        
+        /* background-color: #f7f6fd; */
+        background-image: url("/doorprize-lk.jpeg");
+        background-size: cover;
+
         display: flex;
         flex-direction: column;
         justify-content: center;
