@@ -123,13 +123,13 @@
 
     // TODO: Better Shortcut handler
     function shortcutHandler(event: KeyboardEvent) {
-        console.log({
-            code: event.code,
-            ctrl: event.ctrlKey,
-            shift: event.shiftKey,
-            alt: event.altKey,
-            meta: event.metaKey,
-        });
+        // console.log({
+        //     code: event.code,
+        //     ctrl: event.ctrlKey,
+        //     shift: event.shiftKey,
+        //     alt: event.altKey,
+        //     meta: event.metaKey,
+        // });
 
         if (event.code === "Space") {
             randomizeNumber();
