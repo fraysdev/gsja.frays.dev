@@ -4,9 +4,17 @@
     <link rel="shortcut icon" href="/lifekids.png" type="image/x-icon">
 </svelte:head>
 
+<style>
+    :global(*) {
+        font-family: "Lexend", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+    }
+</style>
+
 <script lang="ts">
     import type { Snippet } from 'svelte';
-    import type { LayoutData } from './$types';
+    import type { LayoutData } from '../lifekids/$types';
 
     let { data, children }: { data: LayoutData, children: Snippet } = $props();
 </script>
