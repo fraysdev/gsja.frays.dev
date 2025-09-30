@@ -26,6 +26,6 @@
 		]
 	},
 	"dependencies": {
-		"@lucide/svelte": "^0.501.0"
+		"@iconify/svelte": "^5.0.2"
 	}
 }
