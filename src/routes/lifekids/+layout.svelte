@@ -41,4 +41,12 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
+
+  :global(kbd) {
+    background-color: #f0f0f0;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 0 4px;
+    font-family: "DM Mono", monospace;
+  }
 </style>

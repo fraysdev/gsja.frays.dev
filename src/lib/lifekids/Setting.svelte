@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Prize from "$lib/lifekids/components/settings/Prize.svelte";
-  import Background from "$lib/lifekids/components/settings/Background.svelte";
-  import Shortcut from "$lib/lifekids/components/settings/Shortcut.svelte";
-  import Help from "$lib/lifekids/components/settings/Help.svelte";
+  import DoorprizeRange from "$lib/lifekids/settings/DoorprizeRange.svelte";
+  import DoorprizeFont from "$lib/lifekids/settings/DoorprizeFont.svelte";
+  import Background from "$lib/lifekids/settings/Background.svelte";
+
   import Icon from "@iconify/svelte";
 
   let settingPopup = $state(false);
@@ -13,61 +13,34 @@
       event.preventDefault();
       settingOpt = "prize";
       settingPopup = !settingPopup;
-    } else if (["?"].includes(event.key.toLowerCase())) {
-      event.preventDefault();
-      settingOpt = "help";
-      settingPopup = !settingPopup;
-    } else if (["/"].includes(event.key.toLowerCase())) {
-      event.preventDefault();
-      settingOpt = "shortcut";
-      settingPopup = !settingPopup;
     }
   }
 </script>
 
 <svelte:window onkeydown={showSetting} />
 
+{#snippet buttonOption(name: string, id: string, icon: string)}
+  <button
+    class={`option ${settingOpt === id ? "selected" : ""}`}
+    onclick={() => (settingOpt = id)}
+  >
+    <Icon {icon} />
+    <div>{name}</div></button
+  >
+{/snippet}
+
 <div id="setting-overlay" class={`${settingPopup ? "visible" : ""}`}>
   <div id="setting">
     <div id="setting-head">
-      <button
-        class={`option ${settingOpt === "prize" ? "selected" : ""}`}
-        onclick={() => (settingOpt = "prize")}
-      >
-        <Icon icon="ph:hash-bold" />
-        <div>Prize</div></button
-      >
-      <button
-        class={`option ${settingOpt === "appearance" ? "selected" : ""}`}
-        onclick={() => (settingOpt = "appearance")}
-      >
-        <Icon icon="ph:paint-brush-broad-bold" />
-        <div>Appearance</div></button
-      >
-      <button
-        class={`option ${settingOpt === "shortcut" ? "selected" : ""}`}
-        onclick={() => (settingOpt = "shortcut")}
-      >
-        <Icon icon="ph:key-return-bold" />
-        <div>Shortcut</div></button
-      >
-      <button
-        class={`option ${settingOpt === "help" ? "selected" : ""}`}
-        onclick={() => (settingOpt = "help")}
-      >
-        <Icon icon="ph:question-mark-bold" />
-        <div>Help</div></button
-      >
+      {@render buttonOption("Prize", "prize", "ph:chart-polar-bold")}
+      {@render buttonOption("Background", "background", "ph:image-bold")}
     </div>
     <div id="setting-body">
       {#if settingOpt === "prize"}
-        <Prize />
-      {:else if settingOpt === "appearance"}
+        <DoorprizeRange />
+        <DoorprizeFont />
+      {:else if settingOpt === "background"}
         <Background />
-      {:else if settingOpt === "shortcut"}
-        <Shortcut />
-      {:else if settingOpt === "help"}
-        <Help />
       {:else}
         <p>Wth?</p>
       {/if}
@@ -77,7 +50,7 @@
 
 <style>
   #setting-overlay {
-    background-color: #00000010;
+    /* background-color: #00000010; */
     visibility: hidden;
     position: absolute;
     z-index: 10;
@@ -86,7 +59,7 @@
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
   }
 
   #setting-overlay.visible {
@@ -98,6 +71,7 @@
     box-shadow: 0 0 10px 1px #00000060;
     border-radius: 16px;
     overflow: hidden;
+    margin: 16px;
     height: 40%;
     width: 40%;
 
@@ -139,7 +113,7 @@
   }
 
   #setting-body {
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 16px;
   }
 
@@ -166,7 +140,7 @@
     flex-direction: column;
   }
 
-  #setting-body > :global(.section-opt .input-wrap > .input:not(:last-child)) {
+  #setting-body > :global(.section-opt .input-wrap > *:not(:last-child)) {
     border-bottom: 1px solid #e7e7e7;
   }
 
@@ -174,13 +148,13 @@
     padding: 8px;
   }
 
-  #setting-body > :global(.section-opt .input > label) {
+  #setting-body > :global(.section-opt .input label) {
     display: block;
     font-size: 0.8em;
     font-weight: 500;
   }
 
-  #setting-body > :global(.section-opt .input > input) {
+  #setting-body > :global(.section-opt .input input) {
     background-color: transparent;
     padding: 0;
     outline: 0;

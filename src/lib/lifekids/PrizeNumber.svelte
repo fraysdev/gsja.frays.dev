@@ -1,18 +1,22 @@
 <script lang="ts">
-  import { prizeDisplay, runRandomizeNumber } from "./data/doorprize.svelte";
+  import { doorprize } from "./data/doorprize.svelte";
+  import { fontSetting } from "./data/settings/font.svelte";
 
   function runDoorprize(event: KeyboardEvent) {
     if ([" ", "spacebar", "space"].includes(event.key.toLowerCase())) {
       event.preventDefault();
-      runRandomizeNumber();
+      doorprize.playDoorprize();
     }
   }
 </script>
 
 <svelte:window onkeydown={runDoorprize} />
 
-<div id="prize-num">
-  {prizeDisplay.number}
+<div
+  id="prize-num"
+  style={`font-size: ${fontSetting.size}rem; color: ${fontSetting.color};`}
+>
+  {doorprize.number}
 </div>
 
 <style>

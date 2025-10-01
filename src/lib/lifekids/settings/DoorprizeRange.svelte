@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { prizeSetting } from "$lib/lifekids/data/settings/prize.svelte";
+  import { doorprizeSetting } from "$lib/lifekids/data/settings/prize.svelte";
 </script>
 
 <div class="section-opt">
-  <h2>Prize Range Number</h2>
+  <h2>Doorprize Range</h2>
   <div class="input-wrap">
     <div class="input">
       <label for="range-min">Minimal</label>
@@ -11,7 +11,7 @@
         type="number"
         name="range-min"
         id="range-min"
-        bind:value={prizeSetting.rangeMin}
+        bind:value={doorprizeSetting.starting}
       />
     </div>
     <div class="input">
@@ -20,7 +20,7 @@
         type="number"
         name="range-max"
         id="range-max"
-        bind:value={prizeSetting.rangeMax}
+        bind:value={doorprizeSetting.ending}
       />
     </div>
   </div>
