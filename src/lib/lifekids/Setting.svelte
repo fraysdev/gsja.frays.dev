@@ -38,11 +38,11 @@
         <div>Prize</div></button
       >
       <button
-        class={`option ${settingOpt === "image" ? "selected" : ""}`}
-        onclick={() => (settingOpt = "image")}
+        class={`option ${settingOpt === "appearance" ? "selected" : ""}`}
+        onclick={() => (settingOpt = "appearance")}
       >
-        <Icon icon="ph:image-bold" />
-        <div>Background</div></button
+        <Icon icon="ph:paint-brush-broad-bold" />
+        <div>Appearance</div></button
       >
       <button
         class={`option ${settingOpt === "shortcut" ? "selected" : ""}`}
@@ -62,7 +62,7 @@
     <div id="setting-body">
       {#if settingOpt === "prize"}
         <Prize />
-      {:else if settingOpt === "image"}
+      {:else if settingOpt === "appearance"}
         <Background />
       {:else if settingOpt === "shortcut"}
         <Shortcut />

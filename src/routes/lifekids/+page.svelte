@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { background } from "$lib/lifekids/data/background.svelte";
   import PrizeNumber from "$lib/lifekids/PrizeNumber.svelte";
   import Setting from "$lib/lifekids/Setting.svelte";
 </script>
 
-<div id="app">
+<div id="app" style={`background-image: ${background.getImageUrlStyle()}`}>
   <PrizeNumber />
   <Setting />
 </div>
