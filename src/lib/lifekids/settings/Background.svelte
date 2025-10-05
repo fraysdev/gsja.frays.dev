@@ -1,8 +1,10 @@
 <script lang="ts">
+  import DropFile from "$lib/lifekids/components/DropFile.svelte";
   import { background } from "$lib/lifekids/data/settings/background.svelte";
+  import Icon from "@iconify/svelte";
 
   let inputFile: HTMLInputElement;
-  let files = $state<FileList | null>(null);
+  let files: FileList | null = $state(null);
 
   function handleImageFile() {
     if (files === null || files.length === 0) return;
@@ -17,21 +19,7 @@
 <div class="section-opt">
   <h2>Background</h2>
   <div class="input-wrap">
-    <button id="drop-background" onclick={() => inputFile.click()} tabindex={0}>
-      <label for="file-browser" class="file-label">
-        <p>Background</p>
-        <p>Drop image here or click to browse file</p>
-      </label>
-      <input
-        type="file"
-        accept="image/*"
-        name="file-browser"
-        id="file-browser"
-        onchange={handleImageFile}
-        bind:this={inputFile}
-        bind:files
-      />
-    </button>
+    <DropFile />
     <div class="input">
       <label for="overlay-opacity">Overlay Opacity (%)</label>
       <input
@@ -66,37 +54,6 @@
 </div>
 
 <style>
-  #drop-background {
-    background-color: transparent;
-    overflow: hidden;
-    cursor: pointer;
-    height: 8rem;
-    padding: 8px;
-    width: 100%;
-    border: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    text-align: start;
-  }
-
-  #file-browser {
-    display: none;
-  }
-
-  .file-label p {
-    margin: 0;
-  }
-
-  .file-label p:first-child {
-    font-weight: 500;
-  }
-
-  .file-label p:last-child {
-    color: #505050;
-  }
-
   .color-wrapper {
     display: flex;
     justify-content: center;
