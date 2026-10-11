@@ -39,6 +39,7 @@
     background-size: cover;
     position: relative;
     height: 100vh;
+    width: 60vw;
 
     display: flex;
     flex-direction: column;
