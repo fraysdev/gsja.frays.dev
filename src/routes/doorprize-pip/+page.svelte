@@ -58,12 +58,13 @@
 
         width: 90%;
         height: 13%;
-        background-color: #ffdd00;
+        /*background-color: #ffdd00;*/
+        background-image: url("/lower-third.png");
     }
 
     .list {
         height: 100%;
-        padding-left: 13%;
+        padding-left: 12%;
         display: flex;
         align-items: center;
         gap: 10em;
