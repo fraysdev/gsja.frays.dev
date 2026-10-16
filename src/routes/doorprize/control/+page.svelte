@@ -97,8 +97,19 @@
     </main>
 
     <aside>
+        <h2>
+            Configuration
+        </h2>
+
+        <h3>Prize Number</h3>
         <div>
-            Configuration (coming soon!)
+            <div>Min range</div>
+            <input type="number" bind:value={stateData.min} disabled={isRolling} />
+        </div>
+
+        <div>
+            <div>Max range</div>
+            <input type="number" bind:value={stateData.max} disabled={isRolling} />
         </div>
 
         <div>
@@ -140,6 +151,10 @@
 
     aside > * {
         margin-bottom: .5em;
+    }
+
+    aside > h2 {
+        margin-top: 0;
     }
 
     input, button {
