@@ -157,7 +157,7 @@
         margin-top: 0;
     }
 
-    input, button {
+    :global(input), :global(button) {
         background-color: white;
         border: 2px solid #101010;
         box-shadow: 2px 2px black;
@@ -170,39 +170,39 @@
             box-shadow .1s;
     }
 
-    input {
+    :global(input) {
         box-sizing: border-box;
         width: 100%;
     }
 
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
+    :global(input::-webkit-outer-spin-button),
+    :global(input::-webkit-inner-spin-button) {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
       margin: 0;
     }
 
-    input:focus {
+    :global(input:focus) {
         outline: 0;
     }
 
-    button {
+    :global(button) {
         box-sizing: border-box;
         margin: 2px;
     }
 
-    button:hover {
+    :global(button:hover) {
         transform: translate(-2px, -2px);
         box-shadow: 4px 4px black;
     }
 
-    button:active {
+    :global(button:active) {
         transform: translate(0, 0);
         box-shadow: 2px 2px black;
     }
 
-    button.danger {
+    :global(button.danger) {
         background-color: #f77777;
     }
 
