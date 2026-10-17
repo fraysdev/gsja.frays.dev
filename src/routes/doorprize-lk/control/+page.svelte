@@ -1,7 +1,8 @@
 <script lang='ts'>
     import { onMount } from 'svelte';
 
-    let numbers: number[] = $state([]);
+    let numbers: number[] = $state([0, 0, 0, 0, 0]);
+    let placeholder: number[] = $state([0, 0, 0, 0, 0]);
     let input = $state("");
 
     let channel: BroadcastChannel;
@@ -20,11 +21,15 @@
       channel?.postMessage({ type: 'STATE', numbers: $state.snapshot(numbers) });
     })
 
-    function removeNumber(n: number) {
-      numbers = numbers.filter(h => h !== n);
+    function updateNumber(i: number) {
+      numbers[i] = placeholder[i];
     }
 
-    function removeAll() {
+    function resetNumber(i: number) {
+      numbers[i] = 0;
+    }
+
+    function resetAll() {
       numbers = [];
     }
 
@@ -41,18 +46,16 @@
         <div class="list">
             {#each numbers as n,i (i)}
                 <div class="entry">
-                    <span class="number">{n}</span>
-                    <button onclick={() => removeNumber(n)}>X</button>
+                    <input class="number" type="number" bind:value={placeholder[i]} />
+                    <button onclick={() => updateNumber(i)}>Update</button>
+                    <button class="danger" onclick={() => resetNumber(i)}>Reset</button>
                 </div>
             {/each}
+            <div class="reset">
+                <button class="danger" onclick={resetAll}>Reset All</button>
+            </div>
         </div>
     </main>
-    <aside class="broadcast">
-        <div class="title">Input</div>
-        <input class="number" type="text" bind:value={input} />
-        <button onclick={broadcast}>Broadcast</button>
-        <button onclick={removeAll}>Remove All</button>
-    </aside>
 </div>
 
 <style>
@@ -70,14 +73,18 @@
         padding: .7rem 1rem;
     }
 
-    .list .entry {
+    .list .entry,
+    .list .reset {
         padding: .7rem 1rem;
         display: flex;
         align-items: center;
+
+        display: flex;
+        gap: 1em;
     }
 
     .list .entry > .number {
-        font-size: 1.5em;
+        /*font-size: 1.5em;*/
         flex: 1;
     }
 
