@@ -59,12 +59,18 @@
 
     .list {
         height: 100%;
-        padding-left: 12%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        padding-left: 20%;
+
+        display: grid;
+        grid-template-rows: repeat(5, auto);  /* max 5 per column */
+        grid-auto-flow: column;  /* fill down first, then move to next column */
+        align-content: center;
+        /*justify-content: center;*/
         gap: 2em;
+    }
+
+    .list > :nth-child(11) {
+      grid-row-start: 2;
     }
 
     .list > .number {

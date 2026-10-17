@@ -1,12 +1,16 @@
 <script lang='ts'>
     import { onMount } from 'svelte';
 
-    let numbers: number[] = $state([0, 0, 0, 0, 0]);
-    let placeholder: number[] = $state([0, 0, 0, 0, 0]);
+    let numbers: number[] = $state([]);
+    let placeholder: number[] = $state([]);
     let input = $state("");
 
     let channel: BroadcastChannel;
     onMount(() => {
+      if (numbers.length === 0) {
+        forceRestart()
+      }
+
       channel = new BroadcastChannel("doorprize-lk");
       channel.onmessage = (e) => {
         if (e.data.type === 'REQUEST_STATE') {
@@ -30,7 +34,12 @@
     }
 
     function resetAll() {
-      numbers = [];
+      numbers = numbers.filter(_ => 0);
+    }
+
+    function forceRestart() {
+      numbers = Array.from({ length: 13 }, () => 0);
+      placeholder = Array.from({ length: 13 }, () => 0);
     }
 
     function broadcast() {const num = parseInt(input);
@@ -53,6 +62,7 @@
             {/each}
             <div class="reset">
                 <button class="danger" onclick={resetAll}>Reset All</button>
+                <button class="danger" onclick={forceRestart}>Force Restart</button>
             </div>
         </div>
     </main>
