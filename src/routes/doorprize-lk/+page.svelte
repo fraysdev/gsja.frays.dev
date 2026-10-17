@@ -70,7 +70,7 @@
     }
 
     .list > :nth-child(11) {
-      grid-row-start: 2;
+      grid-row-start: 3;
     }
 
     .list > .number {
