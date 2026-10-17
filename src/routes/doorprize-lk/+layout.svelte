@@ -10,7 +10,7 @@
 </svelte:head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
     :global(input), :global(button) {
         background-color: white;
@@ -61,7 +61,8 @@
     }
 
     :global(.number) {
-        font-family: "Fraunces";
+        font-family: "Alegreya";
+        font-variant-numeric: tabular-nums;
     }
 </style>
 
