@@ -31,7 +31,7 @@
     <div class="list">
         {#each numbers as n,i (i)}
             <div class="number">
-                {n}
+                {String(n).padStart(4, '0')}
             </div>
         {/each}
     </div>
